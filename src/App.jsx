@@ -1,27 +1,19 @@
-import {useState, memo, useCallback}  from "react";
-import {Child1} from "./components/Child1";
-import {Child4} from "./components/Child4";
-export const App = memo(() => {
-  console.log("Appレンダリング");
+import { useContext } from "react";
+import { AdminFlagContext} from "./components/providers/AdminFlagProvider"
+import { Card } from "./components/Card";
 
-  const  [num, setNum] = useState(0);
+export const App = () => {
+  const [isAdmin, setIsAdmin] = useContext(AdminFlagContext);
 
-  const onClickButton = () => {
-    setNum(num + 1);
-  };
+  const onClickSwitch = () => setIsAdmin(!isAdmin);
 
-  const onClickReset = useCallback(() => {
-    setNum(0);
-  }, []);
-
-  return (
-    <>
-      <button onClick={onClickButton}>ボタン</button>
-      <p>{num}</p>
-      <Child1 onClickReset={onClickReset} />
-      <Child4 />
-    </>
-  );
-});
+  return(
+    <div>
+      {isAdmin ? <span>管理者です</span> : <span>管理者以外です</span>}
+      <button onClick={onClickSwitch}>切り替え</button>
+      <Card isAdmin={isAdmin} />
+    </div>
+  )
+}
 
 export default App;

@@ -1,0 +1,23 @@
+import { useContext } from "react";
+
+import { AdminFlagContext } from "./providers/AdminFlagProvider";
+
+const style = {
+    width: "100px",
+    padding: "6px",
+    borderRadius: "8px",
+    border: "1px solid black"
+};
+
+export const EditButton = () => {
+    const { isAdmin } = useContext(AdminFlagContext);
+    
+    const contextValue = useContext(AdminFlagContext);
+    console.log(contextValue);
+
+    return (
+        <button style={style} disabled={!isAdmin}>
+            編集
+        </button>
+    );
+};
